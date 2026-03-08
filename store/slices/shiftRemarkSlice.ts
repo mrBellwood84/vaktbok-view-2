@@ -1,4 +1,4 @@
-import {ShiftRemark} from "@/models/Entities/ShiftRemark";
+import {ShiftRemark} from "@/models/entities/ShiftRemark";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 interface ShiftRemarkState {

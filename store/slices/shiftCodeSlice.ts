@@ -1,4 +1,4 @@
-import {ShiftCode} from "@/models/Entities/ShiftCode";
+import {ShiftCode} from "@/models/entities/ShiftCode";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 interface ShiftCodeState {

@@ -1,10 +1,10 @@
 "use server"
 
-import { Employee } from "@/models/Entities/Employee";
+import { Employee } from "@/models/entities/Employee";
 import { createPool} from "mysql2/promise";
-import { Workday } from "@/models/Entities/Workday";
-import { ShiftCode } from "@/models/Entities/ShiftCode";
-import { ShiftRemark } from "@/models/Entities/ShiftRemark";
+import { Workday } from "@/models/entities/Workday";
+import { ShiftCode } from "@/models/entities/ShiftCode";
+import { ShiftRemark } from "@/models/entities/ShiftRemark";
 
 const pool = createPool({
     host: process.env.DB_HOST,

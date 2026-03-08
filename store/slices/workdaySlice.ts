@@ -1,4 +1,4 @@
-import {Workday} from "@/models/Entities/Workday";
+import {Workday} from "@/models/entities/Workday";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 interface WorkdayState {

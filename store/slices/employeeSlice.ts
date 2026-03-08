@@ -1,4 +1,4 @@
-import {Employee} from "@/models/Entities/Employee";
+import {Employee} from "@/models/entities/Employee";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 interface EmployeeState {
