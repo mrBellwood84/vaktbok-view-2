@@ -1,3 +1,5 @@
+"use client"
+
 import {useAppDispatch} from "@/store/hooks";
 import {shiftRemarkSlice} from "@/store/slices/shiftRemarkSlice";
 import {useEffect, useRef} from "react";
@@ -6,19 +8,21 @@ import * as DbService from "@/services/databaseService";
 export const LoadShiftRemarks = () => {
 
     const dispatch = useAppDispatch();
-    const { setShiftRemarks, setLoadingFailed } = shiftRemarkSlice.actions;
+    const {setShiftRemarks, setLoadingFailed} = shiftRemarkSlice.actions;
 
-    const loaded = useRef<boolean>(false);
+    const loading = useRef<boolean>(true);
 
     useEffect(() => {
-        if (!loaded.current) {
+        if (loading.current) {
             DbService.getAllShiftRemarksAsync()
                 .then(data => dispatch(setShiftRemarks(data)))
                 .catch((err) => {
                     console.error("Failed to load Shift Remarks.", err);
                     dispatch(setLoadingFailed())
                 })
-                .finally(() => loaded.current = true);
+                .finally(() => loading.current = false);
         }
-    }, [dispatch, setLoadingFailed, setShiftRemarks]);
+    }, [dispatch, loading, setLoadingFailed, setShiftRemarks]);
+
+    return null;
 }

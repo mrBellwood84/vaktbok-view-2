@@ -1,24 +1,29 @@
-import {useDispatch} from "react-redux";
+"use client"
+
 import {workdaySlice} from "@/store/slices/workdaySlice";
 import {useEffect, useRef} from "react";
 import * as DbService from "@/services/databaseService"
+import {useAppDispatch} from "@/store/hooks";
 
 export const LoadWorkdays = () => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const { setWorkday, setLoadingFailed } = workdaySlice.actions;
 
-    const loaded = useRef<boolean>(false);
+    const loading = useRef<boolean>(true);
 
     useEffect(() => {
-       if(!loaded.current) {
+       if(loading.current) {
            DbService.getAllWorkdaysAsync()
                .then(data => dispatch(setWorkday(data)))
                .catch(err => {
                    console.error("Failed to load all workdays", err);
                    dispatch(setLoadingFailed());
                })
-               .finally(() => loaded.current = true);
+               .finally(() => loading.current = false);
        }
-    },[dispatch, setLoadingFailed, setWorkday])
+
+    },[dispatch, loading, setLoadingFailed, setWorkday])
+
+    return null;
 }

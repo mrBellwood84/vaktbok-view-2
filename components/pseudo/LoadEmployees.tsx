@@ -10,20 +10,20 @@ export const LoadEmployees = () => {
     const dispatch = useAppDispatch();
     const { setEmployees, setLoadingFailed } = employeeSlice.actions;
 
-    const loaded = useRef<boolean>(false);
+    const loading = useRef<boolean>(true);
 
     useEffect(() => {
-        if (!loaded.current) {
+        if (loading.current) {
             DbService.getAllEmployeesAsync()
                 .then(data => dispatch(setEmployees(data)))
                 .catch(err => {
                     console.error("Failed to load employees", err);
                     dispatch(setLoadingFailed());
                 })
-                .finally(() => loaded.current = true);
+                .finally(() => loading.current = false);
         }
 
-    }, [dispatch, loaded, setEmployees, setLoadingFailed]);
+    }, [dispatch, loading, setEmployees, setLoadingFailed]);
 
     return null;
 }
