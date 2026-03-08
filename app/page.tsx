@@ -1,21 +1,18 @@
-import {Fragment} from "react";
-import {LoadEmployees} from "@/components/pseudo/LoadEmployees";
-import {LoadWorkdays} from "@/components/pseudo/LoadWorkdays";
-import {LoadShiftCodes} from "@/components/pseudo/LoadShiftCodes";
-import {LoadShiftRemarks} from "@/components/pseudo/LoadShiftRemarks";
-import {LoadShifts} from "@/components/pseudo/LoadShifts";
+import {PageContainer} from "@/components/shared/PageContainer";
 
 const Home = () => {
-  return <Fragment>
-    <LoadEmployees />
-    <LoadShiftCodes />
-    <LoadShiftRemarks />
-    <LoadShifts />
-    <LoadWorkdays />
 
-    <h2>Hello world</h2>
-    <div>Data should load!</div>
-  </Fragment>
+    return <PageContainer title="Hjem">
+        <div>
+            <p>Dette er startsiden med grunnelggende informasjon som</p>
+            <ul>
+                <li>Totalt antall vakter registert</li>
+                <li>Total antall ansatte registert</li>
+                <li>Totalt antall endringer registert</li>
+                <li>Totalt antall endringer uten merknad registert!</li>
+            </ul>
+        </div>
+    </PageContainer>
 }
 
 export default Home

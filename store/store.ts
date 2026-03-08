@@ -4,6 +4,7 @@ import {shiftCodeSlice} from "@/store/slices/shiftCodeSlice";
 import {shiftRemarkSlice} from "@/store/slices/shiftRemarkSlice";
 import {workdaySlice} from "@/store/slices/workdaySlice";
 import {shiftsSlice} from "@/store/slices/shiftsSlice";
+import {uiSlice} from "@/store/slices/uiSlice";
 
 export const makeStore = () => {
     return configureStore({
@@ -13,6 +14,7 @@ export const makeStore = () => {
             shiftRemarks: shiftRemarkSlice.reducer,
             workdays: workdaySlice.reducer,
             shifts: shiftsSlice.reducer,
+            ui: uiSlice.reducer,
         }
     });
 }
