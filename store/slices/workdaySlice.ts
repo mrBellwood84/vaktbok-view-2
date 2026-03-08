@@ -1,0 +1,34 @@
+import {Workday} from "@/models/Entities/Workday";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+
+interface WorkdayState {
+    data?: Workday[];
+    filtered?: Workday[];
+    loading: boolean;
+    loadError: boolean;
+}
+
+const initialState: WorkdayState = {
+    loading: true,
+    loadError: false,
+}
+
+export const workdaySlice = createSlice({
+    name: "workday",
+    initialState,
+    reducers: {
+        setWorkday: (state, action: PayloadAction<Workday[]>) => {
+            state.data = action.payload;
+            state.filtered = action.payload;
+            state.loading = false;
+            state.loadError = false;
+        },
+        setFiltered: (state, action: PayloadAction<Workday[]>) => {
+            state.filtered = action.payload;
+        },
+        setLoadingFailed: (state) => {
+            state.loading = false;
+            state.loading = true;
+        }
+    }
+})
