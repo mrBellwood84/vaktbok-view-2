@@ -5,7 +5,7 @@ import {AppBar, Box, Button, IconButton, Toolbar} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
 import {uiSlice} from "@/store/slices/uiSlice";
 import {Brightness4, Brightness7} from "@mui/icons-material";
-import {SettingStorage} from "@/lib/settingStorage";
+import {SettingStorage} from "@/utils/storage/settingStorage";
 
 type LinkVariant = "text" | "outlined";
 
