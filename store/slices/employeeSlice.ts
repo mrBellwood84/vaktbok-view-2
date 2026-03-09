@@ -2,15 +2,15 @@ import {Employee} from "@/models/entities/Employee";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 interface EmployeeState {
-    data?: Employee[];
-    filtered?: Employee[];
-    loading: boolean;
-    loadError: boolean;
+    employees?: Employee[];
+    employeeFiltered?: Employee[];
+    employeeLoading: boolean;
+    employeeLoadError: boolean;
 }
 
 const initialState: EmployeeState = {
-    loading: true,
-    loadError: false,
+    employeeLoading: true,
+    employeeLoadError: false,
 }
 
 export const employeeSlice = createSlice({
@@ -18,17 +18,20 @@ export const employeeSlice = createSlice({
     initialState,
     reducers: {
         setEmployees: (state, action: PayloadAction<Employee[]>) => {
-            state.data = action.payload;
-            state.filtered = action.payload;
-            state.loading = false;
-            state.loadError = false;
+            const filtered = action.payload.filter(e => {
+                if (e.Name !== "LEDIG") return e;
+            })
+            state.employees = filtered;
+            state.employeeFiltered = filtered;
+            state.employeeLoading = false;
+            state.employeeLoadError = false;
         },
         setFiltered: (state, action: PayloadAction<Employee[]>) => {
-            state.filtered = action.payload;
+            state.employeeFiltered = action.payload;
         },
         setLoadingFailed: (state) => {
-            state.loading = false;
-            state.loadError = true;
+            state.employeeLoading = false;
+            state.employeeLoadError = true;
         },
     }
 });
