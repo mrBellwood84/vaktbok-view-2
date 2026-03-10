@@ -48,7 +48,7 @@ const links: LinkData[] = [
     }
 ]
 
-export const Navigation = () => {
+export const AppNavigation = () => {
 
     const dispatch = useAppDispatch();
     const themeMode = useAppSelector(state => state.ui.mode);

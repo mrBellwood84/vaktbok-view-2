@@ -1,7 +1,7 @@
-import {PageContainer} from "@/components/shared/PageContainer";
+import {AppPageContainer} from "@/components/shared/AppPageContainer";
 
 const ChangePage = () => {
-    return <PageContainer title="Endringer">
+    return <AppPageContainer title="Endringer">
         <p>
             Her kommer en oversikt over endringer som har blitt gjort på vaktlistene.
             den vil inneholde følgende informasjon:
@@ -20,7 +20,7 @@ const ChangePage = () => {
                 Filter for merknad, eller fravær av sådan!
             </li>
         </ul>
-    </PageContainer>
+    </AppPageContainer>
 }
 
 export default ChangePage

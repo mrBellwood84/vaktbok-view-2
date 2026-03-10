@@ -1,7 +1,7 @@
-import {PageContainer} from "@/components/shared/PageContainer";
+import {AppPageContainer} from "@/components/shared/AppPageContainer";
 
 const HeatmapPage = () => {
-    return <PageContainer title="Vaktfordeling">
+    return <AppPageContainer title="Vaktfordeling">
         <ul>
             <li>
                 antall type vakter
@@ -13,7 +13,7 @@ const HeatmapPage = () => {
                 sortering høyest lavest i forhold til disse verdiene
             </li>
         </ul>
-    </PageContainer>
+    </AppPageContainer>
 }
 
 export default HeatmapPage;

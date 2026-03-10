@@ -1,16 +1,25 @@
+"use client"
 
-import {PageContainer} from "@/components/shared/PageContainer";
+import {AppPageContainer} from "@/components/shared/AppPageContainer";
 import {LoadEmployees} from "@/components/pseudo/LoadEmployees";
 import {Box} from "@mui/material";
 import {EmployeeSelectList} from "@/components/employee/EmployeeSelectList";
 import {EmployeeViewData} from "@/components/employee/EmployeeViewData";
+import {AppToolbar} from "@/components/shared/AppToolbar";
+import {ChangeEvent, useState} from "react";
 
 const EmployeePage = () => {
 
-    return <PageContainer title="Ansatte">
+    const [searchInput, setSearchInput] = useState<string>("");
+    const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const inputData = event.target.value;
+        setSearchInput(inputData);
+    }
+
+    return <AppPageContainer title="Ansatte">
         <LoadEmployees />
 
-        <Box>!!! Toolbar here !!!</Box>
+        <AppToolbar value={searchInput} onChange={handleSearchChange} />
 
         <Box sx={{display: "flex", flexDirection: "row"}}>
             <EmployeeSelectList />
@@ -29,7 +38,7 @@ const EmployeePage = () => {
                 </li>
             </ul>
         </div>
-    </PageContainer>
+    </AppPageContainer>
 }
 
 export default EmployeePage;

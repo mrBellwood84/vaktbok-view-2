@@ -9,9 +9,9 @@ export const mapFlatShiftData = (flatData: Shift_FlatModel[]) => {
             time: d.shiftTime,
             createdAt: d.shiftCreatedAt,
             employee: {
-                id: d.employeeId,
-                name: d.employeeName,
-                createdAt: d.employeeCreatedAt,
+                Id: d.employeeId,
+                Name: d.employeeName,
+                CreatedAt: d.employeeCreatedAt,
             },
             workday: {
                 id: d.workdayId,

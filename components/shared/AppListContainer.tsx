@@ -9,7 +9,7 @@ interface Props {
 
 }
 
-export const ListContainer = ({children, loading = false, loadFailed = false, width = "auto"}: Props) => {
+export const AppListContainer = ({children, loading = false, loadFailed = false, width = "auto"}: Props) => {
     return (
         <Box display="flex" flexDirection="row">
             <List sx={{width: width}}>

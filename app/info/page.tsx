@@ -1,7 +1,7 @@
-import {PageContainer} from "@/components/shared/PageContainer";
+import {AppPageContainer} from "@/components/shared/AppPageContainer";
 
 const InformationPage = () => {
-    return <PageContainer title="Informasjon">
+    return <AppPageContainer title="Informasjon">
         <div>
             <p>Denne siden skal inneholde litt forskjellig informasjon som er meta for data</p>
             <ul>
@@ -16,7 +16,7 @@ const InformationPage = () => {
                 </li>
             </ul>
         </div>
-    </PageContainer>
+    </AppPageContainer>
 }
 
 export default InformationPage;

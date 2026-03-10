@@ -7,7 +7,7 @@ interface Props {
     title?: string;
 }
 
-export const PageContainer = ({children, title}: Props) => {
+export const AppPageContainer = ({children, title}: Props) => {
     return <Container sx={{mt:2, display:"flex", flexDirection:"column"}}>
         {title && (
             <Fragment>

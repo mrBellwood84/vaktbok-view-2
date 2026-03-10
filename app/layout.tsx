@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ReactNode } from "react";
 import {StoreProvider} from "@/components/StoreProvider";
-import {Navigation} from "@/components/shared/Navigation";
+import {AppNavigation} from "@/components/shared/AppNavigation";
 import {StyleProvider} from "@/components/StyleProvider";
 import {Roboto} from "next/font/google";
 
@@ -27,7 +27,7 @@ export default function RootLayout(props: Props) {
       <body>
         <StoreProvider>
           <StyleProvider>
-                <Navigation />
+                <AppNavigation />
                 {props.children}
           </StyleProvider>
         </StoreProvider>

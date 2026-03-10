@@ -1,7 +1,7 @@
-import {PageContainer} from "@/components/shared/PageContainer";
+import {AppPageContainer} from "@/components/shared/AppPageContainer";
 
 const CalendarPage = () => {
-    return <PageContainer title="Kalender">
+    return <AppPageContainer title="Kalender">
         <div>
             <p>Her kommer en kalender med ukesvisning. Den vil ha følgende features</p>
             <ul>
@@ -22,7 +22,7 @@ const CalendarPage = () => {
                 </li>
             </ul>
         </div>
-    </PageContainer>
+    </AppPageContainer>
 }
 
 export default CalendarPage;

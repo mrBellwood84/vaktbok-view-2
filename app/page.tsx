@@ -1,8 +1,8 @@
-import {PageContainer} from "@/components/shared/PageContainer";
+import {AppPageContainer} from "@/components/shared/AppPageContainer";
 
 const Home = () => {
 
-    return <PageContainer title="Hjem">
+    return <AppPageContainer title="Hjem">
         <div>
             <p>Dette er startsiden med grunnelggende informasjon som</p>
             <ul>
@@ -12,7 +12,7 @@ const Home = () => {
                 <li>Totalt antall endringer uten merknad registert!</li>
             </ul>
         </div>
-    </PageContainer>
+    </AppPageContainer>
 }
 
 export default Home
