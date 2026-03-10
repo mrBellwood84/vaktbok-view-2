@@ -12,7 +12,7 @@ interface Props {
 export const AppToolbar = ({value, onChange}: Props) => {
     return (
         <Box>
-          <Toolbar>
+          <Toolbar disableGutters>
             <Box sx={{display: "flex", alignItems: "center", flexGrow: 1}}>
               <IconButton disabled={true} sx={{mr: 2}}>
                 <FilterList />

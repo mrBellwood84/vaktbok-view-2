@@ -60,9 +60,9 @@ export const AppNavigation = () => {
     }
 
     return (
-            <AppBar position="static">
+            <AppBar position="static" component="header">
                 <Toolbar>
-                    <Box sx={{flexGrow: 1}}>
+                    <Box component="nav" sx={{flexGrow: 1}}>
                     {links.map((link, index) => (
                         <Button
                             key={`nav-link-${index}`}

@@ -8,9 +8,7 @@ import {EmployeeViewData} from "@/components/employee/EmployeeViewData";
 import {AppToolbar} from "@/components/shared/AppToolbar";
 import {ChangeEvent, useState} from "react";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
-import {employeeViewSlice} from "@/store/slices/employeeViewSlice";
 import {employeeSlice} from "@/store/slices/employeeSlice";
-import {documentGetInitialProps} from "@mui/material-nextjs/v13-pagesRouter";
 
 const EmployeePage = () => {
 
@@ -35,11 +33,11 @@ const EmployeePage = () => {
         dispatch(setFiltered(searchResult));
     }
 
-    return <AppPageContainer title="Ansatte">
+    return <AppPageContainer
+      title="Ansatte"
+      toolbar={<AppToolbar value={searchInput} onChange={handleSearchChange} />}
+    >
         <LoadEmployees />
-
-        <AppToolbar value={searchInput} onChange={handleSearchChange} />
-
         <Box sx={{display: "flex", flexDirection: "row"}}>
             <EmployeeSelectList />
             <EmployeeViewData />

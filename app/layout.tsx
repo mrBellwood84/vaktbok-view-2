@@ -3,7 +3,9 @@ import { ReactNode } from "react";
 import {StoreProvider} from "@/components/StoreProvider";
 import {AppNavigation} from "@/components/shared/AppNavigation";
 import {StyleProvider} from "@/components/StyleProvider";
-import {Roboto} from "next/font/google";
+import {Roboto, Roboto_Mono} from "next/font/google";
+import {Box} from "@mui/material";
+import {AppFooter} from "@/components/shared/AppFooter";
 
 export const metadata: Metadata = {
   title: "Vaktbok Viewer",
@@ -17,6 +19,11 @@ const roboto = Roboto({
     variable: "--font-roboto",
 });
 
+const _robotoMono = Roboto_Mono({
+  subsets: ["latin"],
+  variable: "--font-roboto-mono",
+})
+
 interface Props {
     children: ReactNode;
 }
@@ -27,8 +34,19 @@ export default function RootLayout(props: Props) {
       <body>
         <StoreProvider>
           <StyleProvider>
-                <AppNavigation />
+
+            <Box sx={{display: "flex", flexDirection: "column", height:"100vh"}}>
+
+              <AppNavigation />
+
+              <Box component="main" sx={{flexGrow: 1, overflow: "hidden", display: "flex" }}>
                 {props.children}
+              </Box>
+
+              <AppFooter />
+
+            </Box>
+
           </StyleProvider>
         </StoreProvider>
       </body>

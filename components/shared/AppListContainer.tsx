@@ -1,5 +1,5 @@
 import {Fragment, ReactNode} from "react";
-import {Box, Divider, List, ListItem, Skeleton} from "@mui/material";
+import {Box, Divider, List, ListItem, ListItemText, Skeleton} from "@mui/material";
 
 interface Props {
     children?: ReactNode;
@@ -11,22 +11,36 @@ interface Props {
 
 export const AppListContainer = ({children, loading = false, loadFailed = false, width = "auto"}: Props) => {
     return (
-        <Box display="flex" flexDirection="row">
-            <List sx={{width: width}}>
-                {!loading && !loadFailed && children}
-                {!loading && loadFailed && (<div>load failed here</div>)}
-                {loading && (
-                    <Fragment>
-                        {[...Array(15)].map((_, i) => (
-                            <ListItem key={`skeleton-list-item-${i}`} disablePadding disableGutters alignItems="center">
-                                <Skeleton sx={{width: "95%", height: 30, m:1}} animation="wave" variant="rectangular"/>
-                            </ListItem>
-                        ))}
+      <Box sx={{
+        display: "flex",
+        flexDirection: "row",
+        height: "100%",
+        width: width
+      }}>
+        <List sx={{
+          width: "100%",
+          overflowY: "auto",
+          maxHeight: "100%",
+          px: 1
+        }}>
+          {!loading && !loadFailed && children}
 
-                    </Fragment>
-                )}
-            </List>
-            <Divider orientation="vertical" />
-        </Box>
+          {!loading && loadFailed && (<ListItem>
+            <ListItemText primary="Kunne ikke last inn data"/>
+          </ListItem>)}
+
+          {loading && (
+            <Fragment>
+              {[...Array(15)].map((_, i) => (
+                <ListItem key={`skeleton-list-item-${i}`} disablePadding disableGutters alignItems="center">
+                  <Skeleton sx={{width: "95%", height: 30, m:1}} animation="wave" variant="rectangular"/>
+                </ListItem>
+              ))}
+            </Fragment>
+          )}
+
+        </List>
+        <Divider orientation="vertical" flexItem />
+      </Box>
     )
 }
