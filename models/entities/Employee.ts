@@ -1,5 +1,5 @@
 export interface Employee {
-    Id: string;
-    Name: string;
-    CreatedAt: string;
+  Id: string;
+  Name: string;
+  CreatedAt: string;
 }

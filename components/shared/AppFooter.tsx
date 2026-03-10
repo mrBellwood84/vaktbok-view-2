@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { Box, Typography, Container, useTheme } from "@mui/material";
+import { Box, Container, Typography, useTheme } from "@mui/material";
 
 export const AppFooter = () => {
   const theme = useTheme();
@@ -33,7 +33,7 @@ export const AppFooter = () => {
               sx={{
                 fontFamily: 'var(--font-roboto-mono)',
                 fontWeight: 600,
-                color: 'text.secondary'
+                color: 'text.secondary',
               }}
             >
               Vaktbok View v.2.0.0
@@ -50,7 +50,7 @@ export const AppFooter = () => {
               sx={{
                 fontFamily: 'var(--font-roboto-mono)',
                 color: 'text.disabled',
-                fontSize: '0.75rem'
+                fontSize: '0.75rem',
               }}
             >
               powered by:
@@ -63,7 +63,7 @@ export const AppFooter = () => {
                 fontWeight: 700,
                 fontSize: '0.9rem',
                 color: 'text.primary',
-                mx: 1.5 // Ekstra luft rundt katten
+                mx: 1.5, // Ekstra luft rundt katten
               }}
             >
               =^<span style={{ color: theme.palette.secondary.main }}>..</span>^=
@@ -76,7 +76,7 @@ export const AppFooter = () => {
                 fontFamily: 'var(--font-roboto-mono)',
                 color: 'text.secondary',
                 fontSize: '0.75rem',
-                letterSpacing: 0.5
+                letterSpacing: 0.5,
               }}
             >
               the <span style={{ fontWeight: 700, color: theme.palette.secondary.main }}>API</span> cat

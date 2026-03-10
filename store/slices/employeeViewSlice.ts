@@ -1,18 +1,19 @@
-import {Employee} from "@/models/entities/Employee";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+import { Employee } from "@/models/entities/Employee";
 
 interface EmployeeViewState {
-    selectedEmployee?: Employee;
+  selectedEmployee?: Employee;
 }
 
-const initialState: EmployeeViewState = {}
+const initialState: EmployeeViewState = {};
 
 export const employeeViewSlice = createSlice({
-    name: "employeeView",
-    initialState,
-    reducers: {
-        setSelectedEmployee: (state, action: PayloadAction<Employee>) => {
-            state.selectedEmployee = action.payload;
-        }
-    }
-})
+  name: "employeeView",
+  initialState,
+  reducers: {
+    setSelectedEmployee: (state, action: PayloadAction<Employee>) => {
+      state.selectedEmployee = action.payload;
+    },
+  },
+});

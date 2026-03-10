@@ -1,5 +1,5 @@
 export interface ShiftCode {
-    id: string;
-    code: string;
-    createdAt: string;
+  id: string;
+  code: string;
+  createdAt: string;
 }

@@ -1,11 +1,14 @@
-import type { Metadata } from "next";
 import { ReactNode } from "react";
-import {StoreProvider} from "@/components/StoreProvider";
-import {AppNavigation} from "@/components/shared/AppNavigation";
-import {StyleProvider} from "@/components/StyleProvider";
-import {Roboto, Roboto_Mono} from "next/font/google";
-import {Box} from "@mui/material";
-import {AppFooter} from "@/components/shared/AppFooter";
+
+import type { Metadata } from "next";
+import { Roboto, Roboto_Mono } from "next/font/google";
+
+import { Box } from "@mui/material";
+
+import { AppFooter } from "@/components/shared/AppFooter";
+import { AppNavigation } from "@/components/shared/AppNavigation";
+import { StoreProvider } from "@/components/StoreProvider";
+import { StyleProvider } from "@/components/StyleProvider";
 
 export const metadata: Metadata = {
   title: "Vaktbok Viewer",
@@ -13,43 +16,43 @@ export const metadata: Metadata = {
 };
 
 const roboto = Roboto({
-    weight: ["300","400","500","700"],
-    subsets: ["latin"],
-    display: "swap",
-    variable: "--font-roboto",
+  weight: ["300", "400", "500", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-roboto",
 });
 
 const _robotoMono = Roboto_Mono({
   subsets: ["latin"],
   variable: "--font-roboto-mono",
-})
+});
 
 interface Props {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 export default function RootLayout(props: Props) {
   return (
     <html lang="no" className={roboto.className}>
-      <body>
-        <StoreProvider>
-          <StyleProvider>
+    <body>
+    <StoreProvider>
+      <StyleProvider>
 
-            <Box sx={{display: "flex", flexDirection: "column", height:"100vh"}}>
+        <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
 
-              <AppNavigation />
+          <AppNavigation/>
 
-              <Box component="main" sx={{flexGrow: 1, overflow: "hidden", display: "flex" }}>
-                {props.children}
-              </Box>
+          <Box component="main" sx={{ flexGrow: 1, overflow: "hidden", display: "flex" }}>
+            {props.children}
+          </Box>
 
-              <AppFooter />
+          <AppFooter/>
 
-            </Box>
+        </Box>
 
-          </StyleProvider>
-        </StoreProvider>
-      </body>
+      </StyleProvider>
+    </StoreProvider>
+    </body>
     </html>
   );
 }

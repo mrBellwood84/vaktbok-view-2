@@ -1,20 +1,22 @@
-"use client"
+"use client";
 
-import {ReactNode, useState} from "react";
-import {makeStore} from "@/store/store";
-import {Provider} from "react-redux";
+import { ReactNode, useState } from "react";
+
+import { Provider } from "react-redux";
+
+import { makeStore } from "@/store/store";
 
 interface Props {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 export const StoreProvider = (props: Props) => {
 
-    const [ store ] = useState(() => makeStore());
+  const [store] = useState(() => makeStore());
 
-    return <Provider store={store}>
-        {props.children}
-    </Provider>
-}
+  return <Provider store={store}>
+    {props.children}
+  </Provider>;
+};
 
 

@@ -1,34 +1,35 @@
-import {Workday} from "@/models/entities/Workday";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+import { Workday } from "@/models/entities/Workday";
 
 interface WorkdayState {
-    data?: Workday[];
-    filtered?: Workday[];
-    loading: boolean;
-    loadError: boolean;
+  data?: Workday[];
+  filtered?: Workday[];
+  loading: boolean;
+  loadError: boolean;
 }
 
 const initialState: WorkdayState = {
-    loading: true,
-    loadError: false,
-}
+  loading: true,
+  loadError: false,
+};
 
 export const workdaySlice = createSlice({
-    name: "workday",
-    initialState,
-    reducers: {
-        setWorkday: (state, action: PayloadAction<Workday[]>) => {
-            state.data = action.payload;
-            state.filtered = action.payload;
-            state.loading = false;
-            state.loadError = false;
-        },
-        setFiltered: (state, action: PayloadAction<Workday[]>) => {
-            state.filtered = action.payload;
-        },
-        setLoadingFailed: (state) => {
-            state.loading = false;
-            state.loading = true;
-        }
-    }
-})
+  name: "workday",
+  initialState,
+  reducers: {
+    setWorkday: (state, action: PayloadAction<Workday[]>) => {
+      state.data = action.payload;
+      state.filtered = action.payload;
+      state.loading = false;
+      state.loadError = false;
+    },
+    setFiltered: (state, action: PayloadAction<Workday[]>) => {
+      state.filtered = action.payload;
+    },
+    setLoadingFailed: (state) => {
+      state.loading = false;
+      state.loading = true;
+    },
+  },
+});

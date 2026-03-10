@@ -1,34 +1,35 @@
-import {ShiftRemark} from "@/models/entities/ShiftRemark";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+import { ShiftRemark } from "@/models/entities/ShiftRemark";
 
 interface ShiftRemarkState {
-    data?: ShiftRemark[];
-    filtered?: ShiftRemark[];
-    loading: boolean;
-    loadError: boolean;
+  data?: ShiftRemark[];
+  filtered?: ShiftRemark[];
+  loading: boolean;
+  loadError: boolean;
 }
 
 const initialState: ShiftRemarkState = {
-    loading: true,
-    loadError: false,
-}
+  loading: true,
+  loadError: false,
+};
 
 export const shiftRemarkSlice = createSlice({
-    name: "shiftremarks",
-    initialState,
-    reducers: {
-        setShiftRemarks: (state, action: PayloadAction<ShiftRemark[]>) => {
-            state.data = action.payload;
-            state.filtered = action.payload;
-            state.loading = false;
-            state.loadError = false;
-        },
-        setFiltered: (state, action: PayloadAction<ShiftRemark[]>) => {
-            state.filtered = action.payload;
-        },
-        setLoadingFailed: (state) => {
-            state.loading = false;
-            state.loadError = true;
-        }
-    }
-})
+  name: "shiftremarks",
+  initialState,
+  reducers: {
+    setShiftRemarks: (state, action: PayloadAction<ShiftRemark[]>) => {
+      state.data = action.payload;
+      state.filtered = action.payload;
+      state.loading = false;
+      state.loadError = false;
+    },
+    setFiltered: (state, action: PayloadAction<ShiftRemark[]>) => {
+      state.filtered = action.payload;
+    },
+    setLoadingFailed: (state) => {
+      state.loading = false;
+      state.loadError = true;
+    },
+  },
+});

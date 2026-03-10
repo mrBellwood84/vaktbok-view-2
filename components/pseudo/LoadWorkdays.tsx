@@ -1,29 +1,30 @@
-"use client"
+"use client";
 
-import {workdaySlice} from "@/store/slices/workdaySlice";
-import {useEffect, useRef} from "react";
-import * as DbService from "@/services/databaseService"
-import {useAppDispatch} from "@/store/hooks";
+import { useEffect, useRef } from "react";
+
+import * as DbService from "@/services/databaseService";
+import { useAppDispatch } from "@/store/hooks";
+import { workdaySlice } from "@/store/slices/workdaySlice";
 
 export const LoadWorkdays = () => {
 
-    const dispatch = useAppDispatch();
-    const { setWorkday, setLoadingFailed } = workdaySlice.actions;
+  const dispatch = useAppDispatch();
+  const { setWorkday, setLoadingFailed } = workdaySlice.actions;
 
-    const loading = useRef<boolean>(true);
+  const loading = useRef<boolean>(true);
 
-    useEffect(() => {
-       if(loading.current) {
-           DbService.getAllWorkdaysAsync()
-               .then(data => dispatch(setWorkday(data)))
-               .catch(err => {
-                   console.error("Failed to load all workdays", err);
-                   dispatch(setLoadingFailed());
-               })
-               .finally(() => loading.current = false);
-       }
+  useEffect(() => {
+    if (loading.current) {
+      DbService.getAllWorkdaysAsync()
+        .then(data => dispatch(setWorkday(data)))
+        .catch(err => {
+          console.error("Failed to load all workdays", err);
+          dispatch(setLoadingFailed());
+        })
+        .finally(() => loading.current = false);
+    }
 
-    },[dispatch, loading, setLoadingFailed, setWorkday])
+  }, [dispatch, loading, setLoadingFailed, setWorkday]);
 
-    return null;
-}
+  return null;
+};
