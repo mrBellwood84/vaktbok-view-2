@@ -1,5 +1,5 @@
 export interface FilePath {
-  id: string;
-  path: string;
-  createdAt: string
+  Id: string;
+  Path: string;
+  CreatedAt: string
 }

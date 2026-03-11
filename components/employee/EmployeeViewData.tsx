@@ -6,7 +6,15 @@ import { useAppSelector } from "@/store/hooks";
 
 export const EmployeeViewData = () => {
 
-  const selectedEmployee = useAppSelector(state => state.employeeView.selectedEmployee);
+  const {
+    selectedEmployee,
+    changedShifts,
+    uniqueShiftCount,
+    changedShiftCount,
+    loading,
+  } = useAppSelector(state => state.employeeView);
+
+  if (loading) return <div>DEV :: Loading!</div>;
 
   // no employee or employee failed loading
   if (!selectedEmployee) {
@@ -19,6 +27,7 @@ export const EmployeeViewData = () => {
     );
   }
 
+
   // employee loaded and features calculated
   return (
     <Box sx={{ m: 2, flexGrow: 1 }}>
@@ -26,6 +35,12 @@ export const EmployeeViewData = () => {
         {selectedEmployee.Name}
       </Typography>
       <Divider sx={{ m: 2, flexGrow: 1 }}/>
+      <Box>
+        <div>
+          Antall skift: {uniqueShiftCount}
+          Endrede shift: {changedShiftCount}
+        </div>
+      </Box>
       <h3>Features</h3>
       <ul>
         <li>Total antall skift</li>

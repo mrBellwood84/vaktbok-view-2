@@ -1,5 +1,5 @@
 export interface ShiftRemark {
-  id: string;
-  remark: string;
-  createdAt: string;
+  Id: string;
+  Remark: string;
+  CreatedAt: string;
 }

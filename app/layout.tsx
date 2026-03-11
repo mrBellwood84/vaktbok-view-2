@@ -22,7 +22,8 @@ const roboto = Roboto({
   variable: "--font-roboto",
 });
 
-const _robotoMono = Roboto_Mono({
+
+const robotoMono = Roboto_Mono({
   subsets: ["latin"],
   variable: "--font-roboto-mono",
 });
@@ -33,7 +34,7 @@ interface Props {
 
 export default function RootLayout(props: Props) {
   return (
-    <html lang="no" className={roboto.className}>
+    <html lang="no" className={`${roboto.variable} ${robotoMono.variable}`}>
     <body>
     <StoreProvider>
       <StyleProvider>

@@ -9,6 +9,9 @@ const InformationPage = () => {
           Antall og hva slags remarks som gjelder for vaktlister og hvor ofte de blir brukt!
         </li>
         <li>
+          Gjennomsnitt vaktkode per ansatt (normalisert)
+        </li>
+        <li>
           Antall vaktkoder og hvor ofte de blir brukt!
         </li>
         <li>

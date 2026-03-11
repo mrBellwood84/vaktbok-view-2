@@ -1,8 +1,8 @@
 export interface Workday {
-  id: string;
-  day: number;
-  week: number;
-  year: number;
-  date: string;
-  createdAt: string;
+  Id: string;
+  Day: number;
+  Week: number;
+  Year: number;
+  Date: string;
+  CreatedAt: string;
 }

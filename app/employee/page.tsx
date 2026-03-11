@@ -40,7 +40,7 @@ const EmployeePage = () => {
     toolbar={<AppToolbar value={searchInput} onChange={handleSearchChange}/>}
   >
     <LoadEmployees/>
-    <Box sx={{ display: "flex", flexDirection: "row" }}>
+    <Box sx={{ display: "flex", flexDirection: "row", width: "100%" }}>
       <EmployeeSelectList/>
       <EmployeeViewData/>
     </Box>
