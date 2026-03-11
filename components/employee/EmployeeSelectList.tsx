@@ -42,46 +42,66 @@ export const EmployeeSelectList = () => {
       else shiftsOrdered.push({ date, shifts: [ item ] });
     }
 
+    // get number of changed shifts here!
     const changedShifts = shiftsOrdered.filter(x => x.shifts.length > 1)
       .sort((a,b) => a.date > b.date ? 1 : -1 );
 
+    // look calculates count for different shift codes
     for (let i = 0; i < shiftsOrdered.length; i++) {
       const item = shiftsOrdered[i];
 
+      // set if only one shift found on workday
       if (item.shifts.length === 1) {
+        const dayIndex = item.shifts[0].Workday.Day - 1;
         const code = item.shifts[0].ShiftCode ? item.shifts[0].ShiftCode.Code : "";
+        if (code == "-") continue;
+
         const countItem = shiftCodeCount.find(x => x.code === code);
+
         if (countItem) {
           countItem.original++;
           countItem.latest++;
+          countItem.weekdayCount[dayIndex]++;
           continue;
         }
-        shiftCodeCount.push({ code, latest: 1, original: 1 });
+
+        const newItem: EmployeeShiftCodeCount = { code, latest: 1, original: 1, totalLatest: 0, weekdayCount: [0,0,0,0,0,0,0] };
+        newItem.weekdayCount[dayIndex]++;
+        shiftCodeCount.push(newItem);
         continue;
       }
 
+      // set if many shifts found on workday
       const codeOriginal = item.shifts[0].ShiftCode ? item.shifts[0].ShiftCode.Code : "";
+      if (codeOriginal === "-") continue;
       const originCount = shiftCodeCount.find(x => x.code === codeOriginal);
       if (originCount) {
         originCount.original++;
       } else {
-        shiftCodeCount.push({ code: codeOriginal, latest: 1, original: 1 });
+        shiftCodeCount.push({ code: codeOriginal, latest: 0, original: 1, totalLatest: 0, weekdayCount: [0,0,0,0,0,0,0] });
       }
 
       const codeLatest = item.shifts.at(-1)?.ShiftCode ? item.shifts.at(-1)?.ShiftCode?.Code : "";
+      if (codeLatest === "-") continue;
       const latestCount = shiftCodeCount.find(x => x.code === codeLatest);
+      const dayIndex = item.shifts.at(-1)!.Workday.Day - 1;
+
       if (latestCount) {
         latestCount.latest++;
+        latestCount.weekdayCount[dayIndex]++;
       } else {
-        shiftCodeCount.push({ code: codeLatest ?? "", original: 0, latest: 1 });
+        const newItem: EmployeeShiftCodeCount = { code: codeLatest!, latest: 1, original: 1, totalLatest: 0, weekdayCount: [0,0,0,0,0,0,0] };
+        newItem.weekdayCount[dayIndex]++;
+        shiftCodeCount.push(newItem);
       }
     }
 
-    console.warn(shiftCodeCount);
-
-
+    // get amount of unique shifts and changed shifts
     const uniqueShiftCount = uniqueShiftsSet.size;
     const changedShiftCount = changedShifts.length;
+
+    const totalCodeCount = shiftCodeCount.reduce((sum, item) => sum + item.latest, 0);
+    shiftCodeCount.forEach((item) => {item.totalLatest = totalCodeCount;});
 
     dispatch(setSelectedEmployee({ employee, shifts, changedShifts, uniqueShiftCount, changedShiftCount, shiftCodeCount }));
   };
