@@ -4,6 +4,7 @@ import { ChangeEvent, useState } from "react";
 
 import { Box } from "@mui/material";
 
+import { EmployeeChangeDetailDialog } from "@/components/employee/EmployeeChangeDetailDialog";
 import { EmployeeSelectList } from "@/components/employee/EmployeeSelectList";
 import { EmployeeViewData } from "@/components/employee/EmployeeViewData";
 import { LoadEmployees } from "@/components/pseudo/LoadEmployees";
@@ -40,6 +41,7 @@ const EmployeePage = () => {
     toolbar={<AppToolbar value={searchInput} onChange={handleSearchChange}/>}
   >
     <LoadEmployees/>
+    <EmployeeChangeDetailDialog />
     <Box sx={{ display: "flex", flexDirection: "row", width: "100%" }}>
       <EmployeeSelectList/>
       <EmployeeViewData/>

@@ -46,6 +46,11 @@ export const EmployeeSelectList = () => {
     const changedShifts = shiftsOrdered.filter(x => x.shifts.length > 1)
       .sort((a,b) => a.date > b.date ? 1 : -1 );
 
+    changedShifts.forEach(x => {
+      x.shifts = x.shifts.sort((a,b) => a.CreatedAt > b.CreatedAt ? 1 : -1);
+    });
+
+
     // look calculates count for different shift codes
     for (let i = 0; i < shiftsOrdered.length; i++) {
       const item = shiftsOrdered[i];

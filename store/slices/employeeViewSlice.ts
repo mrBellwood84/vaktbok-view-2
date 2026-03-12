@@ -10,6 +10,7 @@ interface EmployeeViewState {
   shifts: Shift[];
   uniqueShiftCount: number;
   changedShifts: EmployeeShiftOrdered[],
+  changedShiftSelected?: EmployeeShiftOrdered,
   changedShiftCount: number;
   shiftCodesCount: EmployeeShiftCodeCount[];
   loading: boolean;
@@ -46,6 +47,9 @@ export const employeeViewSlice = createSlice({
       state.changedShiftCount = action.payload.changedShiftCount;
       state.shiftCodesCount = action.payload.shiftCodeCount;
       state.loading = false;
+    },
+    setChangeShiftSelected: (state, action: PayloadAction<EmployeeShiftOrdered | undefined>) => {
+      state.changedShiftSelected = action.payload;
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;

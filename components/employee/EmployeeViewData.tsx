@@ -4,9 +4,12 @@ import { useState } from "react";
 
 import { ExpandMore } from "@mui/icons-material";
 import { Accordion,
-  AccordionDetails, AccordionSummary, Box, Divider, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+  AccordionDetails, AccordionSummary, Box, Button, Divider, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 
-import { useAppSelector } from "@/store/hooks";
+import { EmployeeShiftOrdered } from "@/models/view_model/employee/EmployeeShiftOrdered";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { employeeViewSlice } from "@/store/slices/employeeViewSlice";
+import { WEEKDAYS_NO } from "@/utils/constants/days";
 
 export const EmployeeViewData = () => {
 
@@ -19,10 +22,17 @@ export const EmployeeViewData = () => {
     loading,
   } = useAppSelector(state => state.employeeView);
 
+  const dispatch = useAppDispatch();
+  const { setChangeShiftSelected } = employeeViewSlice.actions;
+
   const [expanded, setExpanded] = useState<string>("p2");
 
   const handleAccordationOnChange = (panel: string) => {
     setExpanded(panel);
+  };
+
+  const handleMoreDetailsClick = (item: EmployeeShiftOrdered) => {
+    dispatch(setChangeShiftSelected(item));
   };
 
   if (loading) return <div>DEV :: Loading!</div>;
@@ -63,9 +73,9 @@ export const EmployeeViewData = () => {
             </Typography>
           </AccordionSummary>
             <AccordionDetails>
-            <Table>
+            <Table size="small">
               <TableHead>
-                <TableRow>
+                <TableRow sx={{ cursor: "default", userSelect: "none" }}>
                   <TableCell align="center">Vaktkode</TableCell>
                   <TableCell align="center">Orgiginal</TableCell>
                   <TableCell align="center">Siste</TableCell>
@@ -75,7 +85,7 @@ export const EmployeeViewData = () => {
               </TableHead>
               <TableBody>
                 {shiftCodesCount.map((item, index) => (
-                  <TableRow key={index}>
+                  <TableRow key={index} hover sx={{ cursor: "default", userSelect: "none" }}>
                     <TableCell align="center" sx={{ fontWeight: 600 }}>{item.code}</TableCell>
                     <TableCell align="center">{item.original}</TableCell>
                     <TableCell align="center">{item.latest}</TableCell>
@@ -97,9 +107,9 @@ export const EmployeeViewData = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Table>
+            <Table size="small">
               <TableHead>
-                <TableRow>
+                <TableRow sx={{ cursor: "default", userSelect: "none" }}>
                   <TableCell align="center">Vaktkode</TableCell>
                   <TableCell align="center">Mandag</TableCell>
                   <TableCell align="center">Tirsdag</TableCell>
@@ -112,7 +122,7 @@ export const EmployeeViewData = () => {
               </TableHead>
               <TableBody>
                 {shiftCodesCount.map((item, index) => (
-                  <TableRow key={index}>
+                  <TableRow key={index} hover sx={{ cursor: "default", userSelect: "none" }}>
                     <TableCell align="center" sx={{ fontWeight: 600 }}>{item.code}</TableCell>
                     <TableCell align="center">{item.weekdayCount[0]}</TableCell>
                     <TableCell align="center">{item.weekdayCount[1]}</TableCell>
@@ -139,8 +149,9 @@ export const EmployeeViewData = () => {
           <AccordionDetails>
             <Table size="small">
               <TableHead>
-                <TableRow>
+                <TableRow sx={{ cursor: "default", userSelect: "none" }}>
                   <TableCell align="center">Dato</TableCell>
+                  <TableCell align="center">Dag</TableCell>
                   <TableCell align="center">Org. Kode</TableCell>
                   <TableCell align="center">Siste Kode</TableCell>
                   <TableCell align="center">Org. Tid</TableCell>
@@ -152,9 +163,13 @@ export const EmployeeViewData = () => {
               </TableHead>
               <TableBody>
                 {changedShifts.map((item, index) => (
-                  <TableRow key={index} hover>
-                    <TableCell align="center"
-                               sx={{ fontWeight: 600, border: "1px solid", borderColor: "divider" }}>{item.shifts.at(0)!.Workday.Date.split(" ")[0]}</TableCell>
+                  <TableRow key={index} hover sx={{ cursor: "default", userSelect: "none" }} >
+                    <TableCell align="center" sx={{ fontWeight: 600 }}>
+                      {item.shifts.at(0)!.Workday.Date.split(" ")[0]}
+                    </TableCell>
+                    <TableCell align="center" sx={{ fontWeight: 600, borderRight: "1px solid", borderColor: "divider" }}>
+                      {WEEKDAYS_NO[item.shifts[0].Workday.Day]}
+                    </TableCell>
 
                     <TableCell align="center">{item.shifts.at(0)!.ShiftCode!.Code}</TableCell>
                     <TableCell align="center"
@@ -167,7 +182,13 @@ export const EmployeeViewData = () => {
                     <TableCell align="center">{item.shifts.at(0)!.ShiftRemark!.Remark}</TableCell>
                     <TableCell align="center"
                                sx={{ borderRight: "1px solid", borderColor: "divider" }}>{item.shifts.at(-1)!.ShiftRemark!.Remark}</TableCell>
-                    <TableCell>DEV :: LINK</TableCell>
+                    <TableCell align="center">
+                      <Button
+                        variant="text"
+                        onClick={() => handleMoreDetailsClick(item)}
+                        sx={{ m:0 , p:0 }}
+                      >Detaljer</Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -176,12 +197,6 @@ export const EmployeeViewData = () => {
         </Accordion>
 
       </Box>
-
-      <h3>Features</h3>
-      <ul>
-        <li>Selectbox for endrede vakter</li>
-        <li>Se historie for endrede vakter</li>
-      </ul>
     </Box>
   );
 };

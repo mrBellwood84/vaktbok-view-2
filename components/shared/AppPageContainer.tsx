@@ -13,6 +13,7 @@ export const AppPageContainer = ({ children, title, toolbar }: Props) => {
 
   return (
     <Container
+      maxWidth="xl"
       sx={{
         mt: 0,
         display: "flex",
