@@ -18,7 +18,7 @@ export const EmployeeChangeDetailDialog = () => {
   if (!open) return null;
 
   return (
-    <Dialog open={open}  onClose={handleDialogClose} maxWidth>
+    <Dialog open={open}  onClose={handleDialogClose} maxWidth="xl">
       <DialogTitle>
         Endring: <i>{data!.shifts[0].Workday.Date.split(" ")[0]}</i>
       </DialogTitle>
@@ -47,7 +47,7 @@ export const EmployeeChangeDetailDialog = () => {
                 <TableCell align="center">{x.Time}</TableCell>
                 <TableCell align="center">{x.ShiftRemark!.Remark}</TableCell>
                 <TableCell align="center" sx={{ fontStyle: "italic" }}>{x.CreatedAt.split(" ")[0]}</TableCell>
-                <TableCell align="center">{x.FilePath.Path.split("/").at(-1)}</TableCell>
+                <TableCell align="center">{x.FilePath!.Path.split("/").at(-1)}</TableCell>
               </TableRow>
             ))}
           </TableBody>

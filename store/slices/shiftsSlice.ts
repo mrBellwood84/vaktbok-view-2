@@ -3,15 +3,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Shift } from "@/models/entities/Shift";
 
 interface ShiftState {
-  data?: Shift[],
-  filtered?: Shift[],
-  loading: boolean,
-  loadError: boolean,
+  shifts?: Shift[],
+  shiftsFiltered?: Shift[],
+  shiftsLoading: boolean,
+  shiftsLoadError: boolean,
 }
 
 const initialState: ShiftState = {
-  loading: true,
-  loadError: false,
+  shiftsLoading: true,
+  shiftsLoadError: false,
 };
 
 export const shiftsSlice = createSlice({
@@ -19,17 +19,17 @@ export const shiftsSlice = createSlice({
   initialState,
   reducers: {
     setShifts: (state, action: PayloadAction<Shift[]>) => {
-      state.data = action.payload;
-      state.filtered = action.payload;
-      state.loading = false;
-      state.loading = false;
+      state.shifts = action.payload;
+      state.shiftsFiltered = action.payload;
+      state.shiftsLoading = false;
+      state.shiftsLoadError = false;
     },
     setFiltered: (state, action: PayloadAction<Shift[]>) => {
-      state.filtered = action.payload;
+      state.shiftsFiltered = action.payload;
     },
     setLoadingFailed: (state) => {
-      state.loading = false;
-      state.loadError = true;
+      state.shiftsLoading = false;
+      state.shiftsLoadError = true;
     },
   },
 });
