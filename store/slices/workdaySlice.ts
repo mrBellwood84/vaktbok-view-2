@@ -3,15 +3,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Workday } from "@/models/entities/Workday";
 
 interface WorkdayState {
-  data?: Workday[];
-  filtered?: Workday[];
-  loading: boolean;
-  loadError: boolean;
+  workdays?: Workday[];
+  workdaysFiltered?: Workday[];
+  workdayLoading: boolean;
+  workdayLoadError: boolean;
 }
 
 const initialState: WorkdayState = {
-  loading: true,
-  loadError: false,
+  workdayLoading: true,
+  workdayLoadError: false,
 };
 
 export const workdaySlice = createSlice({
@@ -19,17 +19,17 @@ export const workdaySlice = createSlice({
   initialState,
   reducers: {
     setWorkday: (state, action: PayloadAction<Workday[]>) => {
-      state.data = action.payload;
-      state.filtered = action.payload;
-      state.loading = false;
-      state.loadError = false;
+      state.workdays = action.payload;
+      state.workdaysFiltered = action.payload;
+      state.workdayLoading = false;
+      state.workdayLoadError = false;
     },
     setFiltered: (state, action: PayloadAction<Workday[]>) => {
-      state.filtered = action.payload;
+      state.workdaysFiltered = action.payload;
     },
     setLoadingFailed: (state) => {
-      state.loading = false;
-      state.loading = true;
+      state.workdayLoading = false;
+      state.workdayLoadError = true;
     },
   },
 });

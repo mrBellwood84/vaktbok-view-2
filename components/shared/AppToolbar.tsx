@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent } from "react";
+import { ChangeEvent, JSX } from "react";
 
 import { FilterList, Search } from "@mui/icons-material";
 import { Box, Divider, IconButton, InputAdornment, TextField, Toolbar } from "@mui/material";
@@ -8,14 +8,16 @@ import { Box, Divider, IconButton, InputAdornment, TextField, Toolbar } from "@m
 interface Props {
   value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  centerElement?: JSX.Element
+  rightElement?: JSX.Element
 }
 
-export const AppToolbar = ({ value, onChange }: Props) => {
+export const AppToolbar = ({ value, onChange, centerElement = undefined, rightElement = undefined }: Props) => {
   return (
     <Box>
-      <Toolbar disableGutters>
+      <Toolbar disableGutters sx={{ display: "flex", justifyContent: "space-between" }}>
         <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
-          <IconButton disabled={true} sx={{ mr: 2 }}>
+          <IconButton disabled={true} sx={{ mr: 1 }} >
             <FilterList/>
           </IconButton>
           <TextField
@@ -34,6 +36,8 @@ export const AppToolbar = ({ value, onChange }: Props) => {
             }}
           />
         </Box>
+        {centerElement ? centerElement : <Box sx={{ flexGrow:1 }}/>}
+        {rightElement ? rightElement : <Box sx={{ flexGrow:1 }}/>}
       </Toolbar>
       <Divider/>
     </Box>

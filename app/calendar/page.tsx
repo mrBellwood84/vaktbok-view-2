@@ -1,21 +1,41 @@
 "use client";
 
-import { Fragment } from "react";
+import { ChangeEvent, Fragment, useState } from "react";
 
 import { getISOWeek } from "date-fns";
 
+import { CalendarNavigation } from "@/components/calendar/CalendarNavigation";
 import { LoadShifts } from "@/components/pseudo/LoadShifts";
+import { LoadWorkdays } from "@/components/pseudo/LoadWorkdays";
+import { ParseCalendarView } from "@/components/pseudo/ParseCalendarView";
 import { AppPageContainer } from "@/components/shared/AppPageContainer";
 import LoadingSpinner from "@/components/shared/AppPageLoading";
+import { AppToolbar } from "@/components/shared/AppToolbar";
 import { useAppSelector } from "@/store/hooks";
 
 const CalendarPage = () => {
 
-  const shiftLoading = useAppSelector(state => state.shifts.shiftsLoading);
+  const shiftsLoading = useAppSelector(state => state.shifts.shiftsLoading);
+  const workdayLoading = useAppSelector(state => state.workdays.workdayLoading);
+  const loading =shiftsLoading || workdayLoading;
 
-  if (shiftLoading) {
+  const viewLoading = useAppSelector(state => state.calendarView.calendarInitializing);
+
+  const [searchValue, setSearchValue] = useState<string>("");
+
+  const handleSearchOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value);
+  };
+
+  // load and parse data
+  if (loading || viewLoading) {
     return <Fragment>
-      <LoadShifts />
+      {loading && (
+        <Fragment>
+          <LoadShifts/>
+          <LoadWorkdays/>
+        </Fragment>)}
+      {!loading && viewLoading && <ParseCalendarView />}
       <LoadingSpinner />
     </Fragment>;
   }
@@ -23,7 +43,11 @@ const CalendarPage = () => {
   const now = new Date();
   const currentWeekNumber = getISOWeek(now);
   
-  return <AppPageContainer title="Kalender">
+  return <AppPageContainer
+    title="Kalender"
+    toolbar={<AppToolbar value={searchValue} onChange={handleSearchOnChange} centerElement={<CalendarNavigation />} /> }>
+
+
     <div>DEV :: NOW {"->"} {currentWeekNumber}</div>
 
     <div>
