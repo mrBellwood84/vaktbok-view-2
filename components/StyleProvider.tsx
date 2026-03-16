@@ -19,7 +19,7 @@ export const StyleProvider = (props: Props) => {
 
   const dispatch = useAppDispatch();
   const { setInitialMode } = uiSlice.actions;
-  const { mode, initialized } = useAppSelector(state => state.ui);
+  const { mode } = useAppSelector(state => state.ui);
 
   useEffect(() => {
     const savedTheme = SettingStorage.getThemeMode();
@@ -27,8 +27,6 @@ export const StyleProvider = (props: Props) => {
   }, [dispatch, setInitialMode]);
 
   const theme = getCustomTheme(mode);
-
-  if (!initialized) return <div>Page loading!!!</div>;
 
   return (
     <AppRouterCacheProvider>

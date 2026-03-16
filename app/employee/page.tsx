@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, Fragment, useState } from "react";
 
 import { Box } from "@mui/material";
 
@@ -9,6 +9,7 @@ import { EmployeeSelectList } from "@/components/employee/EmployeeSelectList";
 import { EmployeeViewData } from "@/components/employee/EmployeeViewData";
 import { LoadEmployees } from "@/components/pseudo/LoadEmployees";
 import { AppPageContainer } from "@/components/shared/AppPageContainer";
+import AppPageLoading from "@/components/shared/AppPageLoading";
 import { AppToolbar } from "@/components/shared/AppToolbar";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { employeeSlice } from "@/store/slices/employeeSlice";
@@ -18,7 +19,7 @@ const EmployeePage = () => {
   const dispatch = useAppDispatch();
 
   const { setFiltered } = employeeSlice.actions;
-  const allEmployees = useAppSelector(state => state.employees.employees) ?? [];
+  const { employees, employeeLoading } = useAppSelector(state => state.employees) ?? [];
 
   const [searchInput, setSearchInput] = useState<string>("");
 
@@ -28,13 +29,22 @@ const EmployeePage = () => {
 
     const searchParts = inputData.toLowerCase().split(" ").filter(Boolean);
 
-    const searchResult = allEmployees.filter(e => {
+    const searchResult = employees!.filter(e => {
       const nameNorm = e.Name.toLowerCase();
       return searchParts.every(part => nameNorm.includes(part));
     });
 
     dispatch(setFiltered(searchResult));
   };
+
+  if (employeeLoading) {
+    return (
+      <Fragment>
+        <LoadEmployees />
+        <AppPageLoading />
+      </Fragment>
+    );
+  }
 
   return <AppPageContainer
     title="Ansatte"

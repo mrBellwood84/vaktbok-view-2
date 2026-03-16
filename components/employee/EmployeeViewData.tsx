@@ -6,6 +6,7 @@ import { ExpandMore } from "@mui/icons-material";
 import { Accordion,
   AccordionDetails, AccordionSummary, Box, Button, Divider, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 
+import { AppContentLoading } from "@/components/shared/AppContentLoading";
 import { EmployeeShiftOrdered } from "@/models/view_model/employee/EmployeeShiftOrdered";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { employeeViewSlice } from "@/store/slices/employeeViewSlice";
@@ -35,7 +36,7 @@ export const EmployeeViewData = () => {
     dispatch(setChangeShiftSelected(item));
   };
 
-  if (loading) return <div>DEV :: Loading!</div>;
+  if (loading) return <AppContentLoading />;
 
   // no employee or employee failed loading
   if (!selectedEmployee) {

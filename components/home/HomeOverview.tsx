@@ -4,20 +4,18 @@ import { useMemo } from "react";
 
 import { Box, Divider, Table, TableBody, TableCell, TableRow, Typography } from "@mui/material";
 
+import AppPageLoading from "@/components/shared/AppPageLoading";
 import { Shift } from "@/models/entities/Shift";
 import { useAppSelector } from "@/store/hooks";
 
 const HomeOverview = () => {
-  const { shifts, shiftsLoading, shiftsLoadError } = useAppSelector(state => state.shifts);
+  const { shifts, shiftsLoading } = useAppSelector(state => state.shifts);
 
-  // Vi bruker useMemo for å unngå infinite loop og spare ytelse
   const stats = useMemo(() => {
-    // 1. Definer lokale tellere inne i memoen
     const employees = new Set<string>();
     const employeeShifts = new Map<string, Shift[]>();
     let shiftCount = 0;
 
-    // 2. Kjør igjennom dataene én gang
     for (const shift of shifts ?? []) {
       const employeeId = shift.Employee.Id;
       const workdayId = shift.Workday.Id;
@@ -25,16 +23,13 @@ const HomeOverview = () => {
 
       employees.add(employeeId);
 
-      // Tell vakter med tid
       if (shift.Time) shiftCount++;
 
-      // Grupper for å finne endringer senere
       const group = employeeShifts.get(employeeWorkdayId) || [];
       group.push(shift);
       employeeShifts.set(employeeWorkdayId, group);
     }
 
-    // 3. Regn ut endrings-statistikk basert på grupperingen
     let changedShiftCount = 0;
     let noRemarkCount = 0;
 
@@ -42,7 +37,6 @@ const HomeOverview = () => {
       if (value.length > 1) {
         changedShiftCount++;
 
-        // Sjekk siste vakt i historikken for merknad
         const lastRemark = value.at(-1)?.ShiftRemark?.Remark;
         if (!lastRemark) {
           noRemarkCount++;
@@ -50,7 +44,6 @@ const HomeOverview = () => {
       }
     }
 
-    // 4. Returner alt som ett objekt
     return {
       employeeCount: employees.size,
       shiftCount,
@@ -59,8 +52,7 @@ const HomeOverview = () => {
     };
   }, [shifts]); // Denne kjører kun når 'shifts' endres i Redux
 
-  if (shiftsLoading) return <div>DEV :: Loading</div>;
-  if (shiftsLoadError) return <div>DEV :: Data load error!</div>;
+  if (shiftsLoading) return <AppPageLoading />;
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 1, width: "max-content" }}>
