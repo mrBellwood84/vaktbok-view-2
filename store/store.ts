@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { calendarViewSlice } from "@/store/slices/calendarViewSlice";
 import { employeeSlice } from "@/store/slices/employeeSlice";
 import { employeeViewSlice } from "@/store/slices/employeeViewSlice";
+import { homeViewSlice } from "@/store/slices/homeViewSlice";
 import { shiftCodeSlice } from "@/store/slices/shiftCodeSlice";
 import { shiftRemarkSlice } from "@/store/slices/shiftRemarkSlice";
 import { shiftsSlice } from "@/store/slices/shiftsSlice";
@@ -15,6 +16,7 @@ export const makeStore = () => {
       calendarView: calendarViewSlice.reducer,
       employees: employeeSlice.reducer,
       employeeView: employeeViewSlice.reducer,
+      homeView: homeViewSlice.reducer,
       shiftCodes: shiftCodeSlice.reducer,
       shiftRemarks: shiftRemarkSlice.reducer,
       workdays: workdaySlice.reducer,

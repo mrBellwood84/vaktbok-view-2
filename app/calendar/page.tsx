@@ -1,19 +1,23 @@
 "use client";
 
-import { ChangeEvent, Fragment, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 import { getISOWeek } from "date-fns";
 
 import { CalendarNavigation } from "@/components/calendar/CalendarNavigation";
-import { LoadShifts } from "@/components/pseudo/LoadShifts";
-import { LoadWorkdays } from "@/components/pseudo/LoadWorkdays";
-import { ParseCalendarView } from "@/components/pseudo/ParseCalendarView";
 import { AppPageContainer } from "@/components/shared/AppPageContainer";
 import LoadingSpinner from "@/components/shared/AppPageLoading";
 import { AppToolbar } from "@/components/shared/AppToolbar";
+import { useLoadShifts } from "@/hooks/data/useLoadShifts";
+import { useLoadWorkdays } from "@/hooks/data/useLoadWorkdays";
+import { useInitializeCalendarView } from "@/hooks/ui/useInitializeCalendarView";
 import { useAppSelector } from "@/store/hooks";
 
 const CalendarPage = () => {
+
+  useLoadShifts();
+  useLoadWorkdays();
+  useInitializeCalendarView();
 
   const shiftsLoading = useAppSelector(state => state.shifts.shiftsLoading);
   const workdayLoading = useAppSelector(state => state.workdays.workdayLoading);
@@ -27,17 +31,8 @@ const CalendarPage = () => {
     setSearchValue(event.target.value);
   };
 
-  // load and parse data
-  if (loading || viewLoading) {
-    return <Fragment>
-      {loading && (
-        <Fragment>
-          <LoadShifts/>
-          <LoadWorkdays/>
-        </Fragment>)}
-      {!loading && viewLoading && <ParseCalendarView />}
-      <LoadingSpinner />
-    </Fragment>;
+  if (viewLoading && loading) {
+    return <LoadingSpinner />;
   }
 
   const now = new Date();

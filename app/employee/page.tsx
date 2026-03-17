@@ -1,20 +1,23 @@
 "use client";
 
-import { ChangeEvent, Fragment, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 import { Box } from "@mui/material";
 
 import { EmployeeChangeDetailDialog } from "@/components/employee/EmployeeChangeDetailDialog";
 import { EmployeeSelectList } from "@/components/employee/EmployeeSelectList";
 import { EmployeeViewData } from "@/components/employee/EmployeeViewData";
-import { LoadEmployees } from "@/components/pseudo/LoadEmployees";
 import { AppPageContainer } from "@/components/shared/AppPageContainer";
 import AppPageLoading from "@/components/shared/AppPageLoading";
 import { AppToolbar } from "@/components/shared/AppToolbar";
+import { useLoadEmployees } from "@/hooks/data/useLoadEmployees";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { employeeSlice } from "@/store/slices/employeeSlice";
 
+
 const EmployeePage = () => {
+
+  useLoadEmployees();
 
   const dispatch = useAppDispatch();
 
@@ -37,20 +40,12 @@ const EmployeePage = () => {
     dispatch(setFiltered(searchResult));
   };
 
-  if (employeeLoading) {
-    return (
-      <Fragment>
-        <LoadEmployees />
-        <AppPageLoading />
-      </Fragment>
-    );
-  }
+  if (employeeLoading) return <AppPageLoading />;
 
   return <AppPageContainer
     title="Ansatte"
     toolbar={<AppToolbar value={searchInput} onChange={handleSearchChange}/>}
   >
-    <LoadEmployees/>
     <EmployeeChangeDetailDialog />
     <Box sx={{ display: "flex", flexDirection: "row", width: "100%" }}>
       <EmployeeSelectList/>
