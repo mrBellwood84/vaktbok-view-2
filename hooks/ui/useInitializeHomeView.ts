@@ -1,56 +1,59 @@
+import { useEffect, useMemo } from "react";
+
 import { Shift } from "@/models/entities/Shift";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { homeViewSlice, HomeViewState } from "@/store/slices/homeViewSlice";
 
 export const useInitializeHomeView = () => {
 
-  // hooks and actions
   const dispatch = useAppDispatch();
   const { setInitialHomeView } = homeViewSlice.actions;
 
-  const shifts = useAppSelector(state => state.shifts.shifts);
+  const shifts = useAppSelector((state) => state.shifts.shifts);
 
-  // values
-  const employees = new Set<string>();
-  const employeeShifts = new Map<string, Shift[]>();
-  let shiftCount = 0;
-  let changesCount = 0;
-  let noRemarkCount = 0;
+  const result = useMemo((): HomeViewState => {
 
-  // iterate shifts
-  for (const shift of shifts ?? []) {
-    const employeeId = shift.Employee.Id;
-    const workdayId = shift.Workday.Id;
-    const employeeWorkdayId = `${employeeId}_${workdayId}`;
+    const employees = new Set<string>();
+    const employeeShifts = new Map<string, Shift[]>();
+    let shiftCount = 0;
+    let changesCount = 0;
+    let noRemarkCount = 0;
 
-    employees.add(employeeId);
+    for (const shift of shifts ?? []) {
+      const employeeId = shift.Employee.Id;
+      const workdayId = shift.Workday.Id;
+      const employeeWorkdayId = `${employeeId}_${workdayId}`;
 
-    if (shift.Time) shiftCount++;
+      employees.add(employeeId);
 
-    const group = employeeShifts.get(employeeWorkdayId) || [];
-    group.push(shift);
-    employeeShifts.set(employeeWorkdayId, group);
-  }
+      if (shift.Time) shiftCount++;
 
+      const group = employeeShifts.get(employeeWorkdayId) || [];
+      group.push(shift);
+      employeeShifts.set(employeeWorkdayId, group);
+    }
 
-  for (const [_, value] of employeeShifts) {
-    if (value.length > 1) {
-      changesCount++;
+    for (const [_, value] of employeeShifts) {
+      if (value.length > 1) {
+        changesCount++;
 
-      const lastRemark = value.at(-1)?.ShiftRemark?.Remark;
-      if (!lastRemark) {
-        noRemarkCount++;
+        const lastRemark = value.at(-1)?.ShiftRemark?.Remark;
+        if (!lastRemark) {
+          noRemarkCount++;
+        }
       }
     }
-  }
 
-  const result: HomeViewState = {
-    employeeCount: employees.size,
-    shiftCount,
-    changesCount,
-    noRemarkCount,
-    loading: false,
-  };
+    return {
+      employeeCount: employees.size,
+      shiftCount,
+      changesCount,
+      noRemarkCount,
+      loading: false,
+    };
+  }, [shifts]);
 
-  dispatch(setInitialHomeView(result));
+  useEffect(() => {
+    dispatch(setInitialHomeView(result));
+  }, [dispatch, result, setInitialHomeView]);
 };
