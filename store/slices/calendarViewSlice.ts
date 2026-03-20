@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { Shift } from "@/models/entities/Shift";
+import { CalendarEmployee } from "@/models/view_model/calendar/CalendarEmployee";
 import { CalendarWeek } from "@/models/view_model/calendar/CalendarWeek";
 
 
@@ -14,7 +14,7 @@ export interface CalendarViewState {
   selectedYear: number
 
   calendarWeeks: CalendarWeek[];
-  selectedShifts: Shift[];
+  selectedShifts: CalendarEmployee[];
 
   calendarInitializing: boolean;
   calendarViewLoading: boolean;
@@ -57,7 +57,7 @@ export const calendarViewSlice = createSlice({
     },
 
     updateSelectedWeekYear: (state, action: PayloadAction<{
-      shifts: Shift[];
+      shifts: CalendarEmployee[];
       week: number,
       year: number
     }>) => {

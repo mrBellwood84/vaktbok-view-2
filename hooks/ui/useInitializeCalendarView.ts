@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { CalendarWeek } from "@/models/view_model/calendar/CalendarWeek";
 import { useAppSelector } from "@/store/hooks";
 import { calendarViewSlice, CalendarViewState } from "@/store/slices/calendarViewSlice";
+import { calendarEmployeeFilter } from "@/utils/filters/calendarEmployeeFilter";
 
 
 export const useInitializeCalendarView = () => {
@@ -36,12 +37,18 @@ export const useInitializeCalendarView = () => {
       else calendarWeeks.push({ week: w.Week, year: w.Year, workdays: [w] });
     }
 
+    const shiftsFiltered = calendarEmployeeFilter(
+      shifts ?? [],
+      currentWeek,
+      currentYear,
+      false);
+
     const initialState: CalendarViewState = {
       minWeek, minYear, maxWeek, maxYear,
       selectedWeek: currentWeek,
       selectedYear: currentYear,
       calendarWeeks,
-      selectedShifts: shifts!,
+      selectedShifts: shiftsFiltered,
       calendarInitializing: false,
       calendarViewLoading: false,
     };
